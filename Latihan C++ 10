@@ -4,18 +4,22 @@
 #include <iomanip>
 #include <string.h>
 #include <numeric>
+
+#define SIZEOF(a) sizeof(a)/sizeof(*a)
+ 
 using namespace std;
 void garis_bintang(){
     cout << "************************************************************************" << endl;
 }
 
-int main(){
+int main(void){
     int a, b;
     char ulg_pgm;
-    string nm_pembeli[20];
-    char kode[5], nama_kue[20];
+    string nm_pembeli[20], nama_kue[20];
+    char kode[5];
     int jml_beli[5];
-    long harga[5], total_hrg[5];
+    long harga[5];
+    int total_hrg[] = { 1, 2, 3, 4, 5 };
     long total_byr;
 
     atas:
@@ -37,16 +41,18 @@ int main(){
         cout << "Kode Kue (A/B/C) : ";
         cin >> kode[a];
         if(kode[a] == 'A' || kode[a] == 'a'){
-            strcpy(nama_kue, "Black Forest");
+            nama_kue[a] == "Black Forest";
             harga[a] = 150000;
         }else if(kode[a] == 'B' || kode[a] == 'b'){
-            strcpy(nama_kue, "Birthday Cake");
+            nama_kue[a] == "Birthday Cake";
             harga[a] = 200000;
-        }else{
-            strcpy(nama_kue, "Tiramisu");
+        }else if(kode[a] == 'C' || kode[a] == 'c'){
+            nama_kue[a] == "Tiramisu";
             harga[a] = 250000;
+        }else{
+            cout << "Menu Tidak Tersedia" << endl;
         }
-        cout << "Jenis Cake       : " << nama_kue << endl;
+        cout << "Jenis Cake       : " << nama_kue[a] << endl;
         cout << "Harga Cake       : " << harga[a] << endl;
         cout << "Jumlah Beli      : " ;
         cin >> jml_beli[a];
@@ -76,7 +82,8 @@ int main(){
     }
     garis_bintang();
         
-        total_byr = accumulate(total_hrg, total_hrg+a, total_byr);
+        size_t n = SIZEOF(total_hrg); 
+        total_byr = accumulate(total_hrg, total_hrg+n, total_byr);
         cout << setiosflags(ios::left) << setw(20) << "TotalBayar               " << total_byr<< endl;
         
         cout << endl;
@@ -92,3 +99,5 @@ int main(){
         }
     return 0;
 }
+
+
